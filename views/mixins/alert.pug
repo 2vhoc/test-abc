@@ -1,0 +1,22 @@
+mixin alert-success(time = 5000)
+  if messages && messages.success && messages.success.length > 0
+    .message.info
+      div(
+        class="alert alert-success"
+        show-alert
+        data-auto-close=time
+      )
+        span #{messages.success}
+        button(type="button" class="close" close-alert) &times;
+
+mixin alert-error(time = 5000)
+  if messages && messages.error && messages.error.length > 0
+    .message.info
+      div(
+        class="alert alert-danger"
+        show-alert
+        data-auto-close=time
+      )
+        span #{messages.error}
+        button(type="button" class="close" close-alert) &times;
+

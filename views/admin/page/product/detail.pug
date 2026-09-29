@@ -1,0 +1,77 @@
+extends ../../layout/default.pug
+
+block concac
+  .container.my-5
+    .mb-4
+      a.btn.btn-outline-secondary.btn-sm(href="/admin/products") 
+        i.fas.arrow-left.mr-2
+        | ← Quay lại danh sách
+
+    .card.shadow-sm.border-0.rounded-lg
+      .card-body.p-4
+        .row.align-items-center
+          
+          .col-md-4.text-center.border-right
+            if (product.thumbnail)
+              .img-thumbnail-wrapper.p-2.bg-light.rounded
+                img(
+                  src=product.thumbnail
+                  alt=product.title
+                  class="img-fluid rounded"
+                  style="max-height: 250px; object-fit: contain;"
+                )
+            else
+              .p-5.bg-light.text-muted.rounded No Image
+
+          .col-md-8.pl-md-4
+            if (product.title)
+              h1.card-title.font-weight-bold.text-dark.mb-3 #{product.title}
+
+            .d-flex.align-items-center.flex-wrap.mb-4
+              if (product.status)
+                .mr-4
+                  span.text-muted.mr-2 Trạng thái:
+                  if (product.status === "active")
+                    span.badge.badge-success.px-3.py-2.rounded-pill Hoạt động
+                  else
+                    span.badge.badge-danger.px-3.py-2.rounded-pill Dừng hoạt động
+              
+              if (product.position)
+                div
+                  span.text-muted.mr-2 Vị trí hiển thị:
+                  span.badge.badge-secondary.px-3.py-2 # #{product.position}
+
+            hr
+
+            .row.my-4
+              if (product.price)
+                .col-sm-6.mb-3.mb-sm-0
+                  .p-3.bg-light.rounded
+                    span.text-muted.d-block.small Giá bán lẻ
+                    span.h4.text-primary.font-weight-bold.mb-0 #{product.price}\$
+              
+              if (product.discountPercentage)
+                .col-sm-6
+                  .p-3.bg-light.rounded
+                    span.text-muted.d-block.small Giảm giá
+                    span.h4.text-danger.font-weight-bold.mb-0 -#{product.discountPercentage}%
+
+            if (product.stock)
+              .mb-4.d-flex.align-items-center
+                span.text-muted.mr-2 Số lượng trong kho:
+                if (product.stock > 10)
+                  span.font-weight-bold.text-success #{product.stock} sản phẩm
+                else
+                  span.font-weight-bold.text-warning #{product.stock} (Sắp hết hàng!)
+
+        if (product.description)
+          .mt-5
+            h5.font-weight-bold.text-dark.border-bottom.pb-2 Mô tả chi tiết
+            .product-description.text-muted.mt-3.line-height-lg
+              | !{product.description}
+    a(
+            href=`${prefixAdmin}/products/edit/${product.id}`
+            class= "btn btn-warning"
+        ) Sửa
+
+  script(src="/admin/js/product.js")
