@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const system = require("./config/system.js");
 const methodOverride = require('method-override')
 const bodyParser = require('body-parser');
@@ -45,13 +46,13 @@ app.use(flash());
 
 app.use(methodOverride('_method'))
 
-app.use(express.static(`${__dirname}/public`)) // thư mục chứa file tĩnh , ra bên ngoài 
+app.use(express.static(path.join(__dirname, "public"))) // thư mục chứa file tĩnh , ra bên ngoài 
 
 app.locals.prefixAdmin = system.prefixAdmin // biến toàn cục , có thể dùng ở mọi nơi trong pug
 
 
 
-app.set("views", `${__dirname}/views`);
+app.set("views", path.join(__dirname, "views"));
 
 app.set("view engine", "pug");
 
